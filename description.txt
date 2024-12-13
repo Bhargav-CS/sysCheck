@@ -1,0 +1,42 @@
+<pre><code>python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        """
+        Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements
+        of nums except nums[i].</p><p>        The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+        You must write an algorithm that runs in O(n) time and without using the division operation.</p><p>        Example 1:
+        Input: nums = [1,2,3,4]
+        Output: [24,12,8,6]</p><p>        Example 2:
+        Input: nums = [-1,1,0,-3,3]
+        Output: [0,0,9,0,0]
+        """</p><p>        n = len(nums)
+        result = [1] * n  # Initialize the result array with 1s</p><p>        # Calculate prefix products
+        prefix_prod = 1
+        for i in range(n):
+            result[i] = prefix_prod
+            prefix_prod *= nums[i]</p><p>        # Calculate suffix products and multiply with prefix products
+        postfix_prod = 1
+        for i in range(n - 1, -1, -1):
+            result[i] *= postfix_prod
+            postfix_prod *= nums[i]</p><p>        return result
+</code></pre><p>**How the code works:**</p><p>1. **Initialization:**
+   - `result = [1] * n`: Creates a result array of the same size as the input `nums`, initialized with all 1s. This array will store the final products.</p><p>2. **Prefix Product Calculation:**
+   - `prefix_prod = 1`: Initializes a variable `prefix_prod` to 1. This variable will accumulate the product of elements encountered so far from the left.
+   - The first loop iterates from left to right (0 to n-1):
+     - `result[i] = prefix_prod`: Stores the current `prefix_prod` in `result[i]`. This represents the product of all elements to the left of `nums[i]`.
+     - `prefix_prod *= nums[i]`: Updates `prefix_prod` by multiplying it with the current element `nums[i]`.</p><p>3. **Postfix Product Calculation and Combination:**
+   - `postfix_prod = 1`: Initializes a variable `postfix_prod` to 1.  This will accumulate the product of elements encountered so far from the right.
+   - The second loop iterates from right to left (n-1 to 0):
+     - `result[i] *= postfix_prod`: Multiplies the existing value in `result[i]` (which is the prefix product) with the current `postfix_prod`. This effectively combines the product of elements to the left and right of `nums[i]`.
+     - `postfix_prod *= nums[i]`: Updates `postfix_prod` by multiplying it with the current element `nums[i]`.</p><p>4. **Return:**
+   - `return result`: Returns the `result` array containing the product of all elements except self for each index.</p><p>
+**Example:**</p><p>Let `nums = [1, 2, 3, 4]`</p><p>**Prefix Pass:**</p><p>- `result[0] = 1` (initial prefix_prod)
+- `result[1] = 1` (prefix_prod after 1)
+- `result[2] = 2` (prefix_prod after 1 * 2)
+- `result[3] = 6` (prefix_prod after 1 * 2 * 3)</p><p>**Postfix Pass:**</p><p>- `result[3] = 6 * 1 = 6`  (initial postfix_prod)
+- `result[2] = 2 * 4 = 8`  (postfix_prod after 4)
+- `result[1] = 1 * 12 = 12` (postfix_prod after 4 * 3)
+- `result[0] = 1 * 24 = 24` (postfix_prod after 4 * 3 * 2)</p><p>
+**Final `result = [24, 12, 8, 6]`**</p><p>
+This approach avoids division and achieves the desired result in O(n) time complexity by using two passes through the array. The first pass calculates prefix products, and the second pass calculates postfix products and combines them with the prefix products to get the final answer.
+</p>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <button id="capture-btn">Capture Screenshot</button>
+        <a id="download-btn" style="display:none;">Download Screenshot</a>
+        <img id="screenshot-img" style="display:none;" alt="Screenshot">
+        <button id="generate-btn" style="display:none;">Generate Description</button>
+        <div id="description-container">
+            <div id="loading" style="display:none;">Loading...</div>
+            <div id="description"></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
